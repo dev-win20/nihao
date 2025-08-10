@@ -26,8 +26,10 @@
             text-decoration: none;
             margin: 0 16px;
             font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
         }
-        nav a:hover {
+        nav a:hover, nav a.active {
             color: #5b8def;
         }
         main {
@@ -37,6 +39,7 @@
             padding: 30px 40px;
             border-radius: 10px;
             box-shadow: 0 2px 14px rgba(0,0,0,0.07);
+            min-height: 350px;
         }
         article {
             margin-bottom: 40px;
@@ -47,6 +50,9 @@
         .date {
             color: #aaa;
             font-size: 0.95em;
+        }
+        .hidden {
+            display: none;
         }
         footer {
             text-align: center;
@@ -62,29 +68,87 @@
         <p>分享生活 · 技术笔记 · 随想随记</p>
     </header>
     <nav>
-        <a href="#">首页</a>
-        <a href="#">关于我</a>
-        <a href="#">联系</a>
+        <a href="#" id="home-link" class="active">首页</a>
+        <a href="#" id="about-link">关于我</a>
+        <a href="#" id="contact-link">联系</a>
     </nav>
     <main>
-        <article>
-            <h2>欢迎来到我的博客！</h2>
-            <div class="date">2025-08-10</div>
-            <p>
-                这是我的第一个博客页面。这里将记录我的成长、技术心得以及生活点滴。<br>
-                欢迎大家常来逛逛，也欢迎留言交流！
-            </p>
-        </article>
-        <article>
-            <h2>示例博文标题</h2>
-            <div class="date">2025-08-01</div>
-            <p>
-                这是一个示例博文内容。你可以在这里发布自己的文章，和大家分享你的知识与见解。
-            </p>
-        </article>
+        <section id="home-section">
+            <article>
+                <h2>欢迎来到我的博客！</h2>
+                <div class="date">2025-08-10</div>
+                <p>
+                    这是我的第一个博客页面。这里将记录我的成长、技术心得以及生活点滴。<br>
+                    欢迎大家常来逛逛，也欢迎留言交流！
+                </p>
+            </article>
+            <article>
+                <h2>示例博文标题</h2>
+                <div class="date">2025-08-01</div>
+                <p>
+                    这是一个示例博文内容。你可以在这里发布自己的文章，和大家分享你的知识与见解。
+                </p>
+            </article>
+        </section>
+        <section id="about-section" class="hidden">
+            <article>
+                <h2>关于我</h2>
+                <p>
+                    你好！我是热爱生活和技术的开发者，喜欢记录与分享所学所得。<br>
+                    这个博客是我成长与思考的空间，欢迎你的到来！
+                </p>
+            </article>
+        </section>
+        <section id="contact-section" class="hidden">
+            <article>
+                <h2>联系我</h2>
+                <p>
+                    如果你有任何建议或想交流的话题，欢迎通过邮箱联系我：<br>
+                    <a href="mailto:yourmail@example.com">yourmail@example.com</a>
+                </p>
+            </article>
+        </section>
     </main>
     <footer>
         &copy; 2025 我的个人博客 | 由 HTML + CSS 构建
     </footer>
+    <script>
+        // 切换不同部分显示
+        const homeLink = document.getElementById('home-link');
+        const aboutLink = document.getElementById('about-link');
+        const contactLink = document.getElementById('contact-link');
+        const homeSection = document.getElementById('home-section');
+        const aboutSection = document.getElementById('about-section');
+        const contactSection = document.getElementById('contact-section');
+        const navLinks = [homeLink, aboutLink, contactLink];
+
+        function showSection(section) {
+            homeSection.classList.add('hidden');
+            aboutSection.classList.add('hidden');
+            contactSection.classList.add('hidden');
+            section.classList.remove('hidden');
+        }
+
+        function setActive(link) {
+            navLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+        }
+
+        homeLink.onclick = function(e) {
+            e.preventDefault();
+            showSection(homeSection);
+            setActive(homeLink);
+        };
+        aboutLink.onclick = function(e) {
+            e.preventDefault();
+            showSection(aboutSection);
+            setActive(aboutLink);
+        };
+        contactLink.onclick = function(e) {
+            e.preventDefault();
+            showSection(contactSection);
+            setActive(contactLink);
+        };
+    </script>
 </body>
 </html>
